@@ -185,21 +185,42 @@ def handle_text_message(event):
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
     address = event.message.address.split()
-    latitude = event.message.latitude
-    longitude = event.message.longitude
-    line_bot_api.reply_message(
-        event.reply_token,[
-            TextMessage(
-                text="adress = %s" %address[1]
-            ),
-            TextMessage(
-                text="latitude = %s" %latitude
-            ),
-            TextMessage(
-                text="longitude = %s" %longitude
-            )
-        ]
-    )
+    srcLatitude = event.message.latitude
+    srcLongitude = event.message.longitude
+    destLatitude = '37.8670224'
+    destLongitude = '138.9425633'
+    route_url = 'http://maps.google.com/maps'
+                + '?saddr=' + srcLatitude + ',' + srcLongitude
+                + '&daddr=' + destLatitude + ',' + destLongitude
+                + '&dirflg=w',
+    buttons_template = ButtonsTemplate(
+        title='ルート', text='ここからのルートを表示します', actions=[
+            URITemplateAction(
+                label='ルートを表示', uri=route_url),
+            # PostbackTemplateAction(label='ping', data='ping'),
+            # PostbackTemplateAction(
+            #     label='ping with text', data='ping',
+            #     text='ping'),
+            # MessageTemplateAction(label='Translate Rice', text='米')
+        ])
+    template_message = TemplateSendMessage(
+        alt_text='Buttons alt text', template=buttons_template)
+    line_bot_api.reply_message(event.reply_token, template_message)
+
+    # line_bot_api.reply_message(
+    #     event.reply_token,[
+    #         TextMessage(
+    #             text="adress = %s" %address[1]
+    #         ),
+    #         TextMessage(
+    #             text="latitude = %s" %latitude
+    #         ),
+    #         TextMessage(
+    #             text="longitude = %s" %longitude
+    #         )
+    #     ]
+    # )
+
     # # GooleMapsGeocodingAPIから座標を取得
     # near_station_url = 'http://map.simpleapi.net/stationapi?x={}&y={}&output=xml'.format(lon, lat)
     # near_station_req = urllib.request.Request(near_station_url)
