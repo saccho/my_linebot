@@ -192,7 +192,7 @@ def handle_location_message(event):
     )
     line_bot_api.reply_message(
         event.reply_token,
-        TextMessage(text="%s, %s" %(event.message.latitude, event.message.longitude))
+        TextMessage(text="aaaa"))
     )
 
 
