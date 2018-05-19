@@ -189,10 +189,10 @@ def handle_location_message(event):
     srcLongitude = event.message.longitude
     destLatitude = '37.8670224'
     destLongitude = '138.9425633'
-    route_url = 'http://maps.google.com/maps'
-                + '?saddr=' + srcLatitude + ',' + srcLongitude
-                + '&daddr=' + destLatitude + ',' + destLongitude
-                + '&dirflg=w',
+    route_url = 'http://maps.google.com/maps'\
+                + '?saddr=' + srcLatitude + ',' + srcLongitude\
+                + '&daddr=' + destLatitude + ',' + destLongitude\
+                + '&dirflg=w'
     buttons_template = ButtonsTemplate(
         title='ルート', text='ここからのルートを表示します', actions=[
             URITemplateAction(
