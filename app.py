@@ -184,12 +184,12 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-    address = event.message.address,
+    address = event.message.address.split()
     latitude = event.message.latitude
     longitude = event.message.longitude
     line_bot_api.reply_message(
         event.reply_token,
-        TextMessage(text="%s" %address))
+        TextMessage(text="%s" %address[1]))
     # # GooleMapsGeocodingAPIから座標を取得
     # near_station_url = 'http://map.simpleapi.net/stationapi?x={}&y={}&output=xml'.format(lon, lat)
     # near_station_req = urllib.request.Request(near_station_url)
