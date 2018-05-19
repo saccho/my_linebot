@@ -205,7 +205,7 @@ def handle_location_message(event):
         ])
     template_message = TemplateSendMessage(
         alt_text='Buttons alt text', template=buttons_template)
-    line_bot_api.reply_message(address, template_message)
+    line_bot_api.reply_message(event.reply_token, template_message)
 
     # line_bot_api.reply_message(
     #     event.reply_token,[
