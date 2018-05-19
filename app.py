@@ -19,6 +19,7 @@ import os
 import sys
 import tempfile
 from argparse import ArgumentParser
+import urllib3
 
 from flask import Flask, request, abort
 
@@ -183,18 +184,20 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
+    address = event.message.address,
+    latitude = event.message.latitude
+    longitude = event.message.longitude
     line_bot_api.reply_message(
         event.reply_token,
-        LocationSendMessage(
-            title=event.message.title, address=event.message.address,
-            latitude=event.message.latitude, longitude=event.message.longitude
-        )
-    )
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextMessage(text="aaaa"))
-    )
-
+        TextMessage(text="%s" %address))
+    # # GooleMapsGeocodingAPIから座標を取得
+    # near_station_url = 'http://map.simpleapi.net/stationapi?x={}&y={}&output=xml'.format(lon, lat)
+    # near_station_req = urllib.request.Request(near_station_url)
+    # with urllib.request.urlopen(near_station_req) as response:
+    #     near_station_XmlData = response.read()
+    # near_station_root = ET.fromstring(near_station_XmlData)
+    # near_station_list = near_station_root.findall(".//name")
+    # near_station_n = len(near_station_list)
 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
