@@ -55,15 +55,15 @@ handler = WebhookHandler(channel_secret)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 
-# # function for create tmp dir for download content
-# def make_static_tmp_dir():
-#     try:
-#         os.makedirs(static_tmp_path)
-#     except OSError as exc:
-#         if exc.errno == errno.EEXIST and os.path.isdir(static_tmp_path):
-#             pass
-#         else:
-#             raise
+# function for create tmp dir for download content
+def make_static_tmp_dir():
+    try:
+        os.makedirs(static_tmp_path)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(static_tmp_path):
+            pass
+        else:
+            raise
 
 
 @app.route("/callback", methods=['POST'])
@@ -106,6 +106,6 @@ def handle_location_message(event):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
-    # # create tmp dir for download content
-    # make_static_tmp_dir()
+    # create tmp dir for download content
+    make_static_tmp_dir()
     app.run(host="0.0.0.0", port=port)
