@@ -106,6 +106,6 @@ def handle_location_message(event):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
-    # create tmp dir for download content
-    make_static_tmp_dir()
+    # # create tmp dir for download content
+    # make_static_tmp_dir()
     app.run(host="0.0.0.0", port=port)
