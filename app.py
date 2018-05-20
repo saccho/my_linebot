@@ -86,8 +86,8 @@ def callback():
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
     address = event.message.address.split()
-    srcLatitude = '%f'.format(event.message.latitude)
-    srcLongitude = '%f'.format(event.message.longitude)
+    srcLatitude = str(event.message.latitude)
+    srcLongitude = str(event.message.longitude)
     destLatitude = '37.8670224'
     destLongitude = '138.9425633'
     route_url = 'http://maps.google.com/maps'\
