@@ -18,35 +18,7 @@ def is_str( data = None ) :
   else :
     return False
 
-####
-# 初期値設定
-####
-# APIアクセスキー
-keyid     = "input your accesskey"
-# エンドポイントURL
-url       = "https://api.gnavi.co.jp/RestSearchAPI/20150630/"
-# 緯度・経度、範囲を変数に入れる
-# 緯度経度は日本測地系で日比谷シャンテのもの。範囲はrange=1で300m以内を指定している。
-# 緯度
-latitude  = "35.670083"
-# 経度
-longitude = "139.763267"
-# 範囲
-range     = "1"
 
-####
-# APIアクセス
-####
-# URLに続けて入れるパラメータを組立
-query = [
-  ( "format",    "json"    ),
-  ( "keyid",     keyid     ),
-  ( "latitude",  latitude  ),
-  ( "longitude", longitude ),
-  ( "range",     range     )
-]
-# URL生成
-url += "?{0}".format( urllib3.urlencode( query ) )
 # API実行
 try :
   result = urllib3.urlopen( url ).read()

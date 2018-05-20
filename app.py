@@ -34,40 +34,36 @@ from linebot.models import (
     SourceUser, SourceGroup, SourceRoom,
     TemplateSendMessage, ConfirmTemplate, MessageTemplateAction,
     ButtonsTemplate, ImageCarouselTemplate, ImageCarouselColumn, URITemplateAction,
-    PostbackTemplateAction, DatetimePickerTemplateAction,
-    CarouselTemplate, CarouselColumn, PostbackEvent,
-    StickerMessage, StickerSendMessage, LocationMessage, LocationSendMessage,
-    ImageMessage, VideoMessage, AudioMessage, FileMessage,
-    UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent, BeaconEvent
+    CarouselTemplate, CarouselColumn, LocationMessage, LocationSendMessage,
 )
 
 app = Flask(__name__)
 
-# get channel_secret and channel_access_token from your environment variable
-channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
-channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
-if channel_secret is None:
-    print('Specify LINE_CHANNEL_SECRET as environment variable.')
-    sys.exit(1)
-if channel_access_token is None:
-    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
-    sys.exit(1)
-
-line_bot_api = LineBotApi(channel_access_token)
-handler = WebhookHandler(channel_secret)
-
-static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
-
-
-# function for create tmp dir for download content
-def make_static_tmp_dir():
-    try:
-        os.makedirs(static_tmp_path)
-    except OSError as exc:
-        if exc.errno == errno.EEXIST and os.path.isdir(static_tmp_path):
-            pass
-        else:
-            raise
+# # get channel_secret and channel_access_token from your environment variable
+# channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
+# channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+# if channel_secret is None:
+#     print('Specify LINE_CHANNEL_SECRET as environment variable.')
+#     sys.exit(1)
+# if channel_access_token is None:
+#     print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
+#     sys.exit(1)
+#
+# line_bot_api = LineBotApi(channel_access_token)
+# handler = WebhookHandler(channel_secret)
+#
+# static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
+#
+#
+# # function for create tmp dir for download content
+# def make_static_tmp_dir():
+#     try:
+#         os.makedirs(static_tmp_path)
+#     except OSError as exc:
+#         if exc.errno == errno.EEXIST and os.path.isdir(static_tmp_path):
+#             pass
+#         else:
+#             raise
 
 
 @app.route("/callback", methods=['POST'])
@@ -86,7 +82,6 @@ def callback():
         abort(400)
 
     return 'OK'
-
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
@@ -108,7 +103,7 @@ def handle_location_message(event):
         alt_text='Buttons', template=buttons_template)
     line_bot_api.reply_message(event.reply_token, template_message)
 
-
+    
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     # create tmp dir for download content
