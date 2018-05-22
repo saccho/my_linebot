@@ -21,7 +21,7 @@ line_bot_api = settings.line_bot_api
 handler = settings.handler
 static_tmp_path = settings.static_tmp_path
 
-def run:
+def run():
     port = int(os.getenv("PORT", 5000))
     # # create tmp dir for download content
     make_static_tmp_dir()
@@ -38,7 +38,7 @@ def make_static_tmp_dir:
             raise
 
 @app.route("/callback", methods=['POST'])
-def callback:
+def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
