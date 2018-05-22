@@ -21,14 +21,14 @@ line_bot_api = settings.line_bot_api
 handler = settings.handler
 static_tmp_path = settings.static_tmp_path
 
-def run(self):
+def run:
     port = int(os.getenv("PORT", 5000))
     # # create tmp dir for download content
     make_static_tmp_dir()
     app.run(host="0.0.0.0", port=port)
 
 # function for create tmp dir for download content
-def make_static_tmp_dir(self):
+def make_static_tmp_dir:
     try:
         os.makedirs(static_tmp_path)
     except OSError as exc:
@@ -38,7 +38,7 @@ def make_static_tmp_dir(self):
             raise
 
 @app.route("/callback", methods=['POST'])
-def callback(self):
+def callback:
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -55,7 +55,7 @@ def callback(self):
     return 'OK'
 
 @handler.add(MessageEvent, message=LocationMessage)
-def handle_location_message(self, event):
+def handle_location_message(event):
     gnavi = Gnavi(settings.gnavi_key, event)
     gnavi_data = gnavi.gnavi()
     shop_name = gnavi_data['name']
