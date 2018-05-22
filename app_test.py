@@ -1,9 +1,8 @@
 # coding: utf-8
 
-from cafebot.bot import Bot
+from cafebot import bot
 
 def main():
-    bot = Bot()
     bot.run()
 
 if __name__ == "__main__":
