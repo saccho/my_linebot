@@ -20,7 +20,27 @@ def is_str(data=None):
       return False
 
 class Gnavi(object):
-    def __init__(self):
+    def __init__(self, gnavi_key, event):
+        # エンドポイントURL
+        url = "https://api.gnavi.co.jp/RestSearchAPI/20150630/"
+        # 緯度・経度、範囲を変数に入れる
+        # 範囲はrange=1で300m以内を指定している。
+        # 緯度
+        latitude = str(event.message.latitude)
+        # 経度
+        longitude = str(event.message.longitude)
+        # 範囲
+        range = "1"
+        # URLに続けて入れるパラメータを組立
+        query = [
+            ("format", "json"),
+            ("keyid", gnavi_key),
+            ("latitude", latitude),
+            ("longitude", longitude),
+            ("range", range)
+        ]
+        # URL生成
+        gnavi_url += "?{0}".format(urllib3.urlencode(query))
         self.url = settings.gnavi_url
 
     def gnavi(self):
@@ -60,22 +80,22 @@ class Gnavi(object):
     for rest in data['rest']:
         # 店舗名
         if 'name' in rest and is_str(rest['name']):
-            name = u'{0}'.format(rest['name'])
+            name = '{0}'.format(rest['name'])
             gnavi_data['name'] = name
         # 住所
         if 'address' in rest and is_str(rest['address']):
-            address = u'{0}'.format(rest['address'])
+            address = '{0}'.format(rest['address'])
             gnavi_data['address'] = address
         # 緯度
         if 'latitude' in rest and is_str(rest['latitude']):
-            latitude = u'{0}'.format(rest['latitude'])
+            latitude = '{0}'.format(rest['latitude'])
             gnavi_data['latitude'] = latitude
         # 経度
         if 'longitude' in rest and is_str(rest['longitude']):
-            longitude = u'{0}'.format(rest['longitude'])
+            longitude = '{0}'.format(rest['longitude'])
             gnavi_data['longitude'] = longitude
         # 店画像
         if 'shop_image1' in rest and is_str(rest['shop_image1']):
-            shop_image1 = u'{0}'.format(rest['shop_image1'])
+            shop_image1 = '{0}'.format(rest['shop_image1'])
             gnavi_data['shop_image1'] = shop_image1
     return gnavi_data
