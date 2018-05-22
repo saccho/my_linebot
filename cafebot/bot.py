@@ -28,7 +28,7 @@ def run():
     app.run(host="0.0.0.0", port=port)
 
 # function for create tmp dir for download content
-def make_static_tmp_dir:
+def make_static_tmp_dir():
     try:
         os.makedirs(static_tmp_path)
     except OSError as exc:
