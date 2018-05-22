@@ -7,7 +7,7 @@ import urllib3
 
 from cafebot import settings
 from cafebot.gnavi import Gnavi
-
+from flask import Flask, request, abort
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     SourceUser, SourceGroup, SourceRoom,
