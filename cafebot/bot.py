@@ -6,7 +6,7 @@ import sys
 import urllib3
 
 from cafebot import settings
-from gnavi import Gnavi
+from cafebot.gnavi import Gnavi
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
