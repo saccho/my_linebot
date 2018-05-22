@@ -4,7 +4,7 @@ import os
 import sys
 import urllib3
 
-import settings
+from cafebot import settings
 from gnavi import Gnavi
 
 from linebot.models import (

@@ -8,7 +8,7 @@
 import sys
 import urllib3
 import json
-import settings
+from cafebot import settings
 
 ####
 # 変数の型が文字列かどうかチェック
