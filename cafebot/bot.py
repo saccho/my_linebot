@@ -75,7 +75,7 @@ def callback():
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-    gnavi = Gnavi(settings.gnavi_key, event)
+    gnavi = Gnavi(gnavi_key, event)
     gnavi_data = gnavi.gnavi()
     shop_name = gnavi_data['name']
     shop_address = gnavi_data['address']
@@ -96,9 +96,3 @@ def handle_location_message(event):
     template_message = TemplateSendMessage(
         alt_text='Buttons', template=buttons_template)
     line_bot_api.reply_message(event.reply_token, template_message)
-
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    # create tmp dir for download content
-    make_static_tmp_dir()
-    app.run(host="0.0.0.0", port=port)
