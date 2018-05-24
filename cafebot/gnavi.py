@@ -6,7 +6,7 @@
 #       APIアクセスキーの値にはユーザ登録で取得したものを入れてください。
 #*****************************************************************************************
 import sys
-import urllib3
+import urllib
 import json
 # from cafebot import settings
 
@@ -40,13 +40,13 @@ class Gnavi(object):
             ("range", range)
         ]
         # URL生成
-        gnavi_url += "?{0}".format(urllib3.urlencode(query))
+        gnavi_url += "?{0}".format(urllib.parse.urlencode(query))
         self.url = gnavi_url
 
     def gnavi(self):
         # API実行
         try:
-            result = urllib3.urlopen(self.url).read()
+            result = urllib.request.urlopen(self.url).read()
         except ValueError:
             return 'APIアクセスに失敗しました。'
 
