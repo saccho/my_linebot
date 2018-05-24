@@ -22,7 +22,7 @@ def is_str(data=None):
 class Gnavi(object):
     def __init__(self, gnavi_key, event):
         # エンドポイントURL
-        url = "https://api.gnavi.co.jp/RestSearchAPI/20150630/"
+        self.url = "https://api.gnavi.co.jp/RestSearchAPI/20150630/"
         # 緯度・経度、範囲を変数に入れる
         # 範囲はrange=1で300m以内を指定している。
         # 緯度
@@ -40,8 +40,7 @@ class Gnavi(object):
             ("range", range)
         ]
         # URL生成
-        gnavi_url += "?{0}".format(urllib.parse.urlencode(query))
-        self.url = gnavi_url
+        self.url += '{}'.format(urllib.parse.urlencode(query))
 
     def gnavi(self):
         # API実行
