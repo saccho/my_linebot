@@ -5,7 +5,7 @@ import os
 import sys
 import urllib3
 
-from cafebot import settings
+# from cafebot import settings
 from cafebot.gnavi import Gnavi
 from flask import Flask, request, abort
 from linebot.models import (
@@ -17,9 +17,25 @@ from linebot.models import (
 )
 
 app = Flask(__name__)
-line_bot_api = settings.line_bot_api
-handler = settings.handler
-static_tmp_path = settings.static_tmp_path
+
+channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
+channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+gnavi_key = "023aa91a40b3e48911c22771036dda7f"
+
+if channel_secret is None:
+    print('Specify LINE_CHANNEL_SECRET as environment variable.')
+    sys.exit(1)
+if channel_access_token is None:
+    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
+    sys.exit(1)
+
+line_bot_api = LineBotApi(channel_access_token)
+handler = WebhookHandler(channel_secret)
+static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
+
+# line_bot_api = settings.line_bot_api
+# handler = settings.handler
+# static_tmp_path = settings.static_tmp_path
 
 def run():
     port = int(os.getenv("PORT", 5000))

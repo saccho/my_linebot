@@ -8,7 +8,7 @@
 import sys
 import urllib3
 import json
-from cafebot import settings
+# from cafebot import settings
 
 ####
 # 変数の型が文字列かどうかチェック
@@ -41,7 +41,7 @@ class Gnavi(object):
         ]
         # URL生成
         gnavi_url += "?{0}".format(urllib3.urlencode(query))
-        self.url = settings.gnavi_url
+        self.url = gnavi_url
 
     def gnavi(self):
         # API実行
