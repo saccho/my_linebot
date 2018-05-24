@@ -15,6 +15,9 @@ from linebot.models import (
     ButtonsTemplate, ImageCarouselTemplate, ImageCarouselColumn, URITemplateAction,
     CarouselTemplate, CarouselColumn, LocationMessage, LocationSendMessage,
 )
+from linebot import (
+    LineBotApi, WebhookHandler
+)
 
 app = Flask(__name__)
 
