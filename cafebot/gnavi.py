@@ -20,7 +20,7 @@ def is_str(data=None):
       return False
 
 class Gnavi(object):
-    def __init__(self, gnavi_key, latitude, longitude):
+    def __init__(self, gnavi_key, event):
         # エンドポイントURL
         self.url = "https://api.gnavi.co.jp/RestSearchAPI/20150630/?"
         # 緯度・経度、範囲を変数に入れる
