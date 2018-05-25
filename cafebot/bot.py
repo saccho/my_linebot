@@ -77,23 +77,28 @@ def callback():
 def handle_location_message(event):
     gnavi = Gnavi(gnavi_key, event)
     gnavi_data = gnavi.gnavi()
-
-    shop_name = gnavi_data['name']
-    shop_address = gnavi_data['address']
-    destatitude = gnavi_data['Latitude']
-    deestLongitude = gnavi_data['Longitude']
-    shop_image = gnavi_data['shop_image1']
-    destLatitude = str(destatitude)
-    destLongitude = str(deestLongitude)
-    route_url = 'http://maps.google.com/maps'\
-                + '?saddr=' + srcLatitude + ',' + srcLongitude\
-                + '&daddr=' + destLatitude + ',' + destLongitude\
-                + '&dirflg=w'
-    buttons_template = ButtonsTemplate(
-        title=shop_name, text='ここからのルートを表示します', actions=[
-            URITemplateAction(
-                label='ルートを表示', uri=route_url),
-        ])
-    template_message = TemplateSendMessage(
-        alt_text='Buttons', template=buttons_template)
-    line_bot_api.reply_message(event.reply_token, template_message)
+    if gnavi_data['error_message'] == None:
+        shop_name = gnavi_data['name']
+        shop_address = gnavi_data['address']
+        destatitude = gnavi_data['latitude']
+        deestLongitude = gnavi_data['longitude']
+        # shop_image = gnavi_data['shop_image1']
+        destLatitude = str(destatitude)
+        destLongitude = str(deestLongitude)
+        route_url = 'http://maps.google.com/maps'\
+                    + '?saddr=' + srcLatitude + ',' + srcLongitude\
+                    + '&daddr=' + destLatitude + ',' + destLongitude\
+                    + '&dirflg=w'
+        buttons_template = ButtonsTemplate(
+            title=shop_name, text='ここからのルートを表示します', actions=[
+                URITemplateAction(
+                    label='ルートを表示', uri=route_url),
+            ])
+        template_message = TemplateSendMessage(
+            alt_text='Buttons', template=buttons_template)
+        line_bot_api.reply_message(event.reply_token, template_message)
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=gnavi_data['error_message'])
+        )
