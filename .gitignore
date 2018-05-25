@@ -1,2 +1,2 @@
 app_test.py
-cafebot\settings_local.py
+/cafebot/settings_local.py
