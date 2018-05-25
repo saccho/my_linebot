@@ -22,7 +22,7 @@ def is_str(data=None):
 class Gnavi(object):
     def __init__(self, gnavi_key, event):
         # エンドポイントURL
-        self.url = "https://api.gnavi.co.jp/RestSearchAPI/20150630/"
+        self.url = "https://api.gnavi.co.jp/RestSearchAPI/20150630/?"
         # 緯度・経度、範囲を変数に入れる
         # 範囲はrange=1で300m以内を指定している。
         # 緯度
@@ -33,8 +33,8 @@ class Gnavi(object):
         range = "1"
         # URLに続けて入れるパラメータを組立
         query = [
-            ("format", "json"),
             ("keyid", gnavi_key),
+            ("format", "json"),
             ("latitude", latitude),
             ("longitude", longitude),
             ("range", range)
@@ -48,7 +48,7 @@ class Gnavi(object):
             result = urllib.request.urlopen(self.url).read()
         except ValueError:
             return 'APIアクセスに失敗しました。'
-
+        # return self.url
         ####
         # 取得した結果を解析
         ####
@@ -57,7 +57,7 @@ class Gnavi(object):
         # エラーの場合
         if 'error' in data:
             if 'message' in data:
-                return '{0}'.format(data['message'])
+                return '{}'.format(data['message'])
             else:
                 return 'データ取得に失敗しました。'
 
@@ -67,7 +67,9 @@ class Gnavi(object):
             total_hit_count = data['total_hit_count']
 
         # ヒット件数が0以下、または、ヒット件数がなかったら終了
-        if total_hit_count is None or total_hit_count <= 0:
+        # if (total_hit_count == None) or (total_hit_count = 0):
+        #     return '指定した内容ではヒットしませんでした。'
+        if (total_hit_count == None) or (total_hit_count == 0):
             return '指定した内容ではヒットしませんでした。'
 
         # レストランデータがなかったら終了
@@ -79,22 +81,22 @@ class Gnavi(object):
         for rest in data['rest']:
             # 店舗名
             if 'name' in rest and is_str(rest['name']):
-                name = '{0}'.format(rest['name'])
+                name = '{}'.format(rest['name'])
                 gnavi_data['name'] = name
             # 住所
             if 'address' in rest and is_str(rest['address']):
-                address = '{0}'.format(rest['address'])
+                address = '{}'.format(rest['address'])
                 gnavi_data['address'] = address
             # 緯度
             if 'latitude' in rest and is_str(rest['latitude']):
-                latitude = '{0}'.format(rest['latitude'])
+                latitude = '{}'.format(rest['latitude'])
                 gnavi_data['latitude'] = latitude
             # 経度
             if 'longitude' in rest and is_str(rest['longitude']):
-                longitude = '{0}'.format(rest['longitude'])
+                longitude = '{}'.format(rest['longitude'])
                 gnavi_data['longitude'] = longitude
             # 店画像
             if 'shop_image1' in rest and is_str(rest['shop_image1']):
-                shop_image1 = '{0}'.format(rest['shop_image1'])
+                shop_image1 = '{}'.format(rest['shop_image1'])
                 gnavi_data['shop_image1'] = shop_image1
         return gnavi_data

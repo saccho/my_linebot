@@ -77,6 +77,7 @@ def callback():
 def handle_location_message(event):
     gnavi = Gnavi(gnavi_key, event)
     gnavi_data = gnavi.gnavi()
+
     shop_name = gnavi_data['name']
     shop_address = gnavi_data['address']
     destatitude = gnavi_data['Latitude']
