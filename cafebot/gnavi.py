@@ -27,7 +27,7 @@ class Gnavi(object):
         # 範囲はrange=1で300m以内を指定している。
         # 緯度
         latitude = str(event.message.latitude)
-        # 経度
+        # # 経度
         longitude = str(event.message.longitude)
         # 範囲
         range = "1"
@@ -41,16 +41,16 @@ class Gnavi(object):
         ]
         # URL生成
         self.url += '{}'.format(urllib.parse.urlencode(query))
-        self.err = {}
         self.total_hit_count = None
         self.gnavi_data = {}
+        self.gnavi_data['error_message'] = None
 
     def gnavi(self):
         # API実行
         try:
             result = urllib.request.urlopen(self.url).read()
         except ValueError:
-            self.err['error_message'] = 'APIアクセスに失敗しました。'
+            self.gnavi_data['error_message'] = 'APIアクセスに失敗しました。'
         ####
         # 取得した結果を解析
         ####
@@ -59,9 +59,9 @@ class Gnavi(object):
         # エラーの場合
         if 'error' in data:
             if 'message' in data:
-                self.err['error_message'] = '{}'.format(data['message'])
+                self.gnavi_data['error_message'] = '{}'.format(data['message'])
             else:
-                self.err['error_message'] = 'データ取得に失敗しました。'
+                self.gnavi_data['error_message'] = 'データ取得に失敗しました。'
 
         # ヒット件数取得
         if 'total_hit_count' in data:
@@ -69,15 +69,15 @@ class Gnavi(object):
 
         # ヒット件数が0以下、または、ヒット件数がなし
         if (self.total_hit_count == None) or (self.total_hit_count == 0):
-            self.err['error_message'] = '指定した内容ではヒットしませんでした。'
+            self.gnavi_data['error_message'] = '指定した内容ではヒットしませんでした。'
 
         # レストランデータがなし
         if not 'rest' in data:
-            self.err['error_message'] = 'レストランデータが見つかりませんでした。'
+            self.gnavi_data['error_message'] = 'レストランデータが見つかりませんでした。'
 
         # エラーの場合終了
-        if not self.err == {}:
-            return self.err
+        if not self.gnavi_data['error_message'] == None:
+            return self.gnavi_data
         else:
             pass
 
