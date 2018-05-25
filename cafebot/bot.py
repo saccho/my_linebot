@@ -83,6 +83,8 @@ def handle_location_message(event):
         destatitude = gnavi_data['latitude']
         deestLongitude = gnavi_data['longitude']
         # shop_image = gnavi_data['shop_image1']
+        srcLatitude = str(event.message.latitude)
+        srcLongitude = str(event.message.longitude)
         destLatitude = str(destatitude)
         destLongitude = str(deestLongitude)
         route_url = 'http://maps.google.com/maps'\
