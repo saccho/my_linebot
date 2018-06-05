@@ -17,7 +17,7 @@ class Gnavi(object):
             ("format", "json"),
             ("latitude", latitude),
             ("longitude", longitude),
-            ("range", range)
+            ("range", range),
             ("category_l", "RSFST18000")
         ]
         # URL生成
