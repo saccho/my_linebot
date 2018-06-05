@@ -4,7 +4,6 @@
 import sys
 import urllib
 import json
-import settings
 
 class Gnavi(object):
     def __init__(self, gnavi_key, event):
