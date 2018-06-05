@@ -17,8 +17,12 @@ class Gnavi(object):
             ("format", "json"),
             ("latitude", latitude),
             ("longitude", longitude),
+<<<<<<< HEAD
             ("range", range),
             ("category_l", "RSFST18000")
+=======
+            ("range", range)
+>>>>>>> origin/master
         ]
         # URL生成
         self.url += '{}'.format(urllib.parse.urlencode(query))
