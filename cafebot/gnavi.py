@@ -4,6 +4,7 @@
 import sys
 import urllib
 import json
+import settings
 
 class Gnavi(object):
     def __init__(self, gnavi_key, event):
@@ -18,6 +19,7 @@ class Gnavi(object):
             ("latitude", latitude),
             ("longitude", longitude),
             ("range", range)
+            ("category_l", "RSFST18000")
         ]
         # URL生成
         self.url += '{}'.format(urllib.parse.urlencode(query))
