@@ -21,13 +21,6 @@ from linebot import (
 
 app = Flask(__name__)
 
-<<<<<<< HEAD
-=======
-# line_bot_api = settings_local.line_bot_api
-# handler = settings_local.handler
-# static_tmp_path = settings_local.static_tmp_path
-# gnavi_key = settings_local.gnavi_key
->>>>>>> origin/master
 line_bot_api = settings.line_bot_api
 handler = settings.handler
 static_tmp_path = settings.static_tmp_path
