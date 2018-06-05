@@ -4,7 +4,6 @@
 import os
 import sys
 import urllib3
-# from cafebot import settings_local
 from cafebot import settings
 from cafebot.gnavi import Gnavi
 from flask import Flask, request, abort
