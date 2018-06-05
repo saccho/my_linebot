@@ -28,7 +28,7 @@ app = Flask(__name__)
 line_bot_api = settings.line_bot_api
 handler = settings.handler
 static_tmp_path = settings.static_tmp_path
-# gnavi_key = settings.gnavi_key
+gnavi_key = settings.gnavi_key
 
 def run():
     port = int(os.getenv("PORT", 5000))
